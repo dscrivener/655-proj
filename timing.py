@@ -12,7 +12,7 @@ class Logger:
         return len(self.df) - 1
 
     def stoptiming(self, handle, res):
-        self.df.loc[handle]['stop'] = time.time()
-        self.df.loc[handle]['total'] = self.df.loc[handle]['start'] - self.df.loc[handle]['stop']
-        self.df.loc[handle]['res'] = res
+        self.df.at[handle, 'stop'] = time.time()
+        self.df.at[handle, 'total'] = self.df.iloc[handle]['stop'] - self.df.iloc[handle]['start']
+        self.df.at[handle, 'res'] = res
         self.df.to_csv(datetime.datetime.now().strftime("%m%d%Y%H%M%S.csv"))
