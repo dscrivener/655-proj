@@ -13,7 +13,7 @@ logger = Logger()
 def req(ip):
     # sends one request
     charseq = list(range(65, 91)) + list(range(97, 123))
-    spassword = ''.join(map(chr, random.choice(charseq, 5, replace=True)))
+    password = ''.join(map(chr, random.choice(charseq, 5, replace=True)))
     #password = random.choice(["AAAAA", "BBBBB", "AAABB", "AAAAB", "AABBB"])
     
     password_hash = hashlib.md5(password.encode('utf-8')).hexdigest()
