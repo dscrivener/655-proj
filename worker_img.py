@@ -5,6 +5,8 @@ from imgprocess import ImgModel
 from io import BytesIO
 app = Flask(__name__)
 model = ImgModel()
+
+HOST_IP = '172.17.2.14'
  
 @app.route('/process', methods=['POST'])
 def classify():
@@ -13,7 +15,7 @@ def classify():
         # this is a problem
         return "BAD REQUEST"
     request.files['file'].save("tmp.jpg")
-    return model.process("tmp.jpg")
+    return model.process("tmp.jpg") + "-" + HOST_IP
 
 if __name__ == '__main__':
-    app.run(host='172.17.2.14', port=9000, debug=True)
+    app.run(host=HOST_IP, port=9000, debug=True)

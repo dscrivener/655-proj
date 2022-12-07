@@ -10,11 +10,12 @@ random = np.random.RandomState(372189)
 
 logger = Logger()
 
-def req(ip):
+def req(ip, filename):
     # sends one request
-    files_dir = os.listdir('./images')
+    #files_dir = os.listdir('./images')
 
-    filename = np.random.choice(files_dir)
+    #filename = np.random.choice(files_dir)
+
     pathname = './images/' + filename
     idx = logger.starttiming(filename, os.path.getsize(pathname))
 
@@ -35,6 +36,9 @@ def req(ip):
     _thread.interrupt_main()
 
 # args: ip, total requests, max. concurrent requests
+i = 0
+files_dir = os.listdir('./images')
+
 if len(sys.argv) > 3:
     ip = sys.argv[1]
     print(ip)
@@ -48,7 +52,8 @@ if len(sys.argv) > 3:
             if out >= max:
                 time.sleep(0.5)
             else:
-                t = threading.Thread(target=req, args=(ip,))
+                t = threading.Thread(target=req, args=(ip,files_dir[i%len(files_dir)],))
+                i += 1
                 t.start()
                 out += 1
         except KeyboardInterrupt:
