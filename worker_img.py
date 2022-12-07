@@ -9,7 +9,6 @@ model = ImgModel()
 @app.route('/process', methods=['POST'])
 def classify():
     print("request = ", request)
-    buffer = BytesIO()
     if 'file' not in request.files:
         # this is a problem
         return "BAD REQUEST"

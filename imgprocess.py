@@ -20,7 +20,6 @@ class ImgModel:
 
         input = Image.open(img).convert('RGB')
         tensor = self.preprocess(input)
-        print(tensor)
         batch = tensor.unsqueeze(0)
 
         with torch.no_grad():

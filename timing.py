@@ -8,7 +8,7 @@ class Logger:
         self.df = pd.DataFrame(columns=['req', 'start', 'stop', 'total', 'res'])
         self.filename = datetime.datetime.now().strftime("%m%d%Y%H%M%S.csv")
 
-    def starttiming(self, hash):
+    def starttiming(self):
         self.df.loc[len(self.df)] = {'req': hash, 'start': time.time(), 'stop': pd.NA, 'res': pd.NA}
         return len(self.df) - 1
 
