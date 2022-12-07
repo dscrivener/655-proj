@@ -5,9 +5,9 @@ from timing import Logger
 import socket
 import requests
 
-WORKER_IP1 = 'http://172.17.2.14:5000/process'
-WORKER_IP2 = 'http://172.17.2.17:5000/process'
-WORKER_IP3 = 'http://172.17.2.23:5000/process'
+WORKER_IP1 = 'http://172.17.2.14:9000/process'
+WORKER_IP2 = 'http://172.17.2.17:9000/process'
+WORKER_IP3 = 'http://172.17.2.23:9000/process'
 
 workers = [WORKER_IP1, WORKER_IP2, WORKER_IP3]
 

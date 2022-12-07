@@ -30,4 +30,4 @@ class ImgModel:
             categories = [s.strip() for s in f.readlines()]
         # return best guess
         best_prob, best_description = torch.topk(probabilities, 1)
-        return"-".join([categories[best_description[0]], str(best_prob[0].item())])
+        return "-".join([categories[best_description[0]], str(best_prob[0].item())])
