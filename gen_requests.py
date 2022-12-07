@@ -1,4 +1,4 @@
-import hashlib
+import os
 import sys
 import threading
 import _thread
@@ -12,29 +12,38 @@ logger = Logger()
 
 def req(ip):
     # sends one request
-    charseq = list(range(65, 91)) + list(range(97, 123))
-    password = ''.join(map(chr, random.choice(charseq, 5, replace=True)))
-    #password = random.choice(["AAAAA", "BBBBB", "AAABB", "AAAAB", "AABBB"])
-    
-    password_hash = hashlib.md5(password.encode('utf-8')).hexdigest()
-    url = 'http://' + ip + '/break_hash/' + password_hash
-    
-    idx = logger.starttiming(password_hash)
-    r = requests.get(url)
-    logger.stoptiming(idx, r.text)
+    files_dir = os.listdir('./images')
 
+    filename = np.random.choice(files_dir)
+    pathname = './images/' + filename
+    idx = logger.starttiming(filename, os.path.getsize(pathname))
+
+    # infer MIME type from extension
+    if (filename.split('.')[1] == 'png'):
+        mime = 'image/png'
+    elif (filename.split('.')[1] == 'jpg' or filename.split('.')[1] == 'jpeg'):
+        mime = 'image/jpeg'
+    else:
+        mime = 'error'
+
+    file = open(pathname, 'rb')
+    files_req = {'file1': (filename, file, mime)}
+    r = requests.post(ip, files=files_req)
+
+    logger.stoptiming(idx, r.text)
     print(r.text)
     _thread.interrupt_main()
 
-# args: # total request, max. concurrent requests
+# args: ip, total requests, max. concurrent requests
 if len(sys.argv) > 3:
     ip = sys.argv[1]
+    print(ip)
     total = eval(sys.argv[2])
     max = eval(sys.argv[3])
 
     # start threads
     out = 0
-    while (total > 1):
+    while (total > 0):
         try:
             if out >= max:
                 time.sleep(0.5)
