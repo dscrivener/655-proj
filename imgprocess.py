@@ -5,7 +5,8 @@ from torchvision import transforms
 class ImgModel:
 
     def __init__(self):
-        self.model = torch.hub.load('pytorch/vision:v0.10.0', 'squeezenet1_0', weights='SqueezeNet1_0_Weights.DEFAULT')
+        # self.model = torch.hub.load('pytorch/vision:v0.10.0', 'squeezenet1_0', weights='SqueezeNet1_0_Weights.DEFAULT')
+        self.model = torch.hub.load('pytorch/vision:v0.10.0', 'squeezenet1_1', pretrained=True)
         self.preprocess = transforms.Compose([
             transforms.Resize(256),
             transforms.CenterCrop(224),
@@ -19,6 +20,7 @@ class ImgModel:
 
         input = Image.open(img).convert('RGB')
         tensor = self.preprocess(input)
+        print(tensor)
         batch = tensor.unsqueeze(0)
 
         with torch.no_grad():
@@ -29,4 +31,4 @@ class ImgModel:
             categories = [s.strip() for s in f.readlines()]
         # return best guess
         best_prob, best_description = torch.topk(probabilities, 1)
-        return(categories[best_description[0]], best_prob[0].item())
+        return"-".join([categories[best_description[0]], str(best_prob[0].item())])
