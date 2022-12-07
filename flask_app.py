@@ -5,7 +5,14 @@ from model import run_model
 import socket
 import requests
 
-WORKER_IP = 'http://172.17.2.14:5000/process'
+WORKER_IP1 = 'http://172.17.2.14:5000/process'
+WORKER_IP2 = 'http://172.17.2.17:5000/process'
+WORKER_IP3 = 'http://172.17.2.23:5000/process'
+
+workers = [WORKER_IP1, WORKER_IP2, WORKER_IP3]
+
+current_worker = 0
+
 HOST = 'pcvm2-9.instageni.cenic.net'
 UPLOAD_FOLDER = './upload'
 
@@ -14,6 +21,8 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
+    
+    global current_worker
 
     if request.method == 'POST':
 
@@ -60,7 +69,9 @@ def upload_file():
             return 'ERROR: File is too large'
 
         files = {'file': file1}
-
+        
+        WORKER_IP = workers[current_worker]
+        current_worker = (current_worker + 1) % (len(workers))
         # send file to worker
         response = requests.post(WORKER_IP, files=files)
         return response.text
