@@ -1,7 +1,7 @@
 import os
 from flask import Flask, request
 # for model
-from model import run_model
+from timing import Logger
 import socket
 import requests
 
@@ -18,6 +18,7 @@ UPLOAD_FOLDER = './upload'
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+timing = Logger()
 
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
@@ -29,39 +30,9 @@ def upload_file():
         if 'file1' not in request.files:
             return 'there is no file1 in form!'
         
+        t = timing.starttiming()
         file1 = request.files['file1']
         path = os.path.join(app.config['UPLOAD_FOLDER'], file1.filename)
-
-        # file1.save(path)
-
-        # after getting and saving file, run model on it
-        # model_results = run_model(path)
-
-	# create connection with worker, make this more generic later
-        # round-robin scheduling
-
-        '''
-        client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        client.connect(('172.17.2.14', 8500))
-
-        file = open(path, 'rb')
-
-        image_data = file.read(2048)
-
-        while image_data:
-            client.send(image_data)
-            image_data = file.read(2048)
-
-        # model_results = client.recv(2048)
-        
-        model_results = ''
-
-        client.close()
-        file.close()
-
-        # show model results to user
-        return model_results
-        '''
 
         if not (file1.content_type == 'image/jpeg' or file1.content_type == 'image/png'):
             return 'ERROR: File must be in .png or .jpg format.'
@@ -74,6 +45,7 @@ def upload_file():
         current_worker = (current_worker + 1) % (len(workers))
         # send file to worker
         response = requests.post(WORKER_IP, files=files)
+        timing.stoptiming(t, response.text)
         return response.text
     
     return '''
