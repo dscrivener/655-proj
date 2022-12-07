@@ -16,4 +16,4 @@ class Logger:
         self.df.at[handle, 'stop'] = time.time()
         self.df.at[handle, 'total'] = self.df.iloc[handle]['stop'] - self.df.iloc[handle]['start']
         self.df.at[handle, 'result'] = res
-        self.df.to_csv(self.filename)
+        self.df.to_csv(self.filename, index=False)
