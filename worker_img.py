@@ -16,4 +16,4 @@ def classify():
     return model.process("tmp.jpg")
 
 if __name__ == '__main__':
-    app.run(host='172.17.2.14', port=9000)
+    app.run(host='172.17.2.14', port=9000, debug=True)
