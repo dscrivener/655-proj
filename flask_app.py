@@ -7,10 +7,8 @@ import requests
 
 WORKER_IP = 'http://172.17.2.14:5000/process'
 HOST = 'pcvm2-9.instageni.cenic.net'
-UPLOAD_FOLDER = './upload'
 
 app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 timing = Logger()
 
 @app.route('/', methods=['GET', 'POST'])
@@ -21,14 +19,14 @@ def upload_file():
         if 'file1' not in request.files:
             return 'there is no file1 in form!'
         
-        t = timing.starttiming()
         file1 = request.files['file1']
-        path = os.path.join(app.config['UPLOAD_FOLDER'], file1.filename)
 
         if not (file1.content_type == 'image/jpeg' or file1.content_type == 'image/png'):
             return 'ERROR: File must be in .png or .jpg format.'
         elif (file1.content_length > 10000000):
             return 'ERROR: File is too large'
+
+        t = timing.starttiming(file1.filename, file1.content_length)
 
         files = {'file': file1}
 
@@ -46,4 +44,4 @@ def upload_file():
     '''
 
 if __name__ == '__main__':
-    app.run(host=HOST, port=8000)
+    app.run(host='localhost', port=8000)
