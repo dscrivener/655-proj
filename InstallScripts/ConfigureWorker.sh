@@ -10,6 +10,4 @@ sudo pip3 install torch torchvision torchaudio --extra-index-url https://downloa
 
 #run the flask app
 cd ..
-python3 flask_app.py
-
-
+python3 worker_img.py
