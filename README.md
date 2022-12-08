@@ -4,7 +4,7 @@
 - Name of GENI slice: test-gvsf
 - Rspec file: https://github.com/dscrivener/655-proj/blob/main/proj.xml
 - Web interface: http://pcvm3-7.geni.case.edu:8000/
-- Video demo: Need to add this.
+- Video demo: https://www.youtube.com/watch?v=TGifRqPWXkA
 
 ## Reproduction 
 The reproduction instructions below deploys the server and puts the model on 3 workers. This was the setup we used in our experimentation.
