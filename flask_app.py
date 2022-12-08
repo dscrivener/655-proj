@@ -30,7 +30,8 @@ def upload_file():
         
         file1 = request.files['file1']
 
-        length = len(file1.read())
+        length = file1.seek(0, os.SEEK_END)
+        file1.seek(0, os.SEEK_SET)
 
         if not (file1.content_type == 'image/jpeg' or file1.content_type == 'image/png'):
             return 'ERROR: File must be in .png or .jpg format.'
