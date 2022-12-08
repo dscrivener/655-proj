@@ -3,21 +3,16 @@ import sys
 import threading
 import _thread
 import time
+from joblib import Parallel, delayed
 import requests
 import numpy as np
 from timing import Logger
 random = np.random.RandomState(372189)
 
-logger = Logger()
+#logger = Logger()
 
 def req(ip, filename):
-    # sends one request
-    #files_dir = os.listdir('./images')
-
-    #filename = np.random.choice(files_dir)
-
     pathname = './images/' + filename
-    idx = logger.starttiming(filename, os.path.getsize(pathname))
 
     # infer MIME type from extension
     if (filename.split('.')[1] == 'png'):
@@ -31,12 +26,7 @@ def req(ip, filename):
     files_req = {'file1': (filename, file, mime)}
     r = requests.post(ip, files=files_req)
 
-    logger.stoptiming(idx, r.text)
-    print(r.text)
-    _thread.interrupt_main()
-
 # args: ip, total requests, max. concurrent requests
-i = 0
 files_dir = os.listdir('./images')
 
 if len(sys.argv) > 3:
@@ -45,21 +35,9 @@ if len(sys.argv) > 3:
     total = eval(sys.argv[2])
     max = eval(sys.argv[3])
 
-    # start threads
-    out = 0
-    while (total > 0):
-        try:
-            if out >= max:
-                time.sleep(0.5)
-            else:
-                t = threading.Thread(target=req, args=(ip,files_dir[i%len(files_dir)],))
-                i += 1
-                t.start()
-                out += 1
-        except KeyboardInterrupt:
-            # one of the requests finished
-            total -= 1
-            out -= 1
+    candidates = [(ip, files_dir[i % len(files_dir)]) for i in range(total)]
+
+    results = Parallel(n_jobs=max, verbose=10)(delayed(req)(ip, filename) for ip, filename in candidates)
 
     print("All requests finished")
 else:

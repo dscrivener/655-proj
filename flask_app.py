@@ -30,12 +30,14 @@ def upload_file():
         
         file1 = request.files['file1']
 
+        length = len(file1.read())
+
         if not (file1.content_type == 'image/jpeg' or file1.content_type == 'image/png'):
             return 'ERROR: File must be in .png or .jpg format.'
         elif (file1.content_length > 10000000):
             return 'ERROR: File is too large'
 
-        t = timing.starttiming(file1.filename, file1.content_length)
+        t = timing.starttiming(file1.filename, length)
 
         files = {'file': file1}
         
