@@ -13,7 +13,7 @@ workers = [WORKER_IP1, WORKER_IP2, WORKER_IP3]
 
 current_worker = 0
 
-HOST = 'pcvm2-9.instageni.cenic.net'
+HOST = "204.102.244.60"
 
 app = Flask(__name__)
 timing = Logger()
@@ -55,4 +55,4 @@ def upload_file():
     '''
 
 if __name__ == '__main__':
-    app.run(host='localhost', port=8000, debug=True)
+    app.run(host=HOST, port=8000, debug=True)
