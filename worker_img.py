@@ -8,7 +8,7 @@ from io import BytesIO
 app = Flask(__name__)
 model = ImgModel()
 
-HOST_IP = '172.17.2.14'
+HOST_IP = "172.17.3.8"
  
 @app.route('/process', methods=['POST'])
 def classify():
@@ -20,10 +20,4 @@ def classify():
     return model.process("tmp.jpg") + "-" + HOST_IP
 
 if __name__ == '__main__':
-    if len(sys.argv) == 2:
-        HOST_ID = eval(sys.argv[1])
-        if HOST_ID > 0 & HOST_ID < 4:
-            HOST_IP = constants.WORKERS[HOST_ID - 1]
-            app.run(host=HOST_IP, port=9000)
-        else:
-            print("Invalid worker id - Expected 1, 2, or 3")
+    app.run(host=HOST_IP, port=9000)
