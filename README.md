@@ -1,9 +1,9 @@
 # Image Classification
 
 ## GENI configuration and any public link: 
-- Name of GENI slice: projectgvsf
+- Name of GENI slice: test-gvsf
 - Rspec file: https://github.com/dscrivener/655-proj/blob/main/proj.xml
-- Web interface: http://pcvm2-9.instageni.cenic.net:8000/
+- Web interface: http://pcvm3-7.geni.case.edu:8000/
 - Video demo: Need to add this.
 
 ## Reproduction 
