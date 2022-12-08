@@ -40,7 +40,7 @@ The reproduction instructions below deploys the server and puts the model on 3 w
     ```bash 
     sudo apt-get install unzip
     ```
-    - Run the server shell script
+    - Run the worker shell script
     ```bash 
     sudo bash 655-proj-main/InstallScripts/ConfigureWorker.sh
     ```
