@@ -2,13 +2,14 @@ import os
 from flask import Flask, request
 # for model
 from timing import Logger
-import socket
 import requests
-import constants
 
-WORKER_IP1 = 'http://{}:9000/process'.format(constants.WORKERS[0])
-WORKER_IP2 = 'http://{}:9000/process'.format(constants.WORKERS[1])
-WORKER_IP3 = 'http://{}:9000/process'.format(constants.WORKERS[2])
+HOST = "192.171.20.121" # Server IP (change it to your server IP)
+WORKERS = ["172.17.3.8", "172.17.3.13", "172.17.3.16"] # Worker IPs (change it to your worker IPs)
+
+WORKER_IP1 = 'http://{}:9000/process'.format(WORKERS[0])
+WORKER_IP2 = 'http://{}:9000/process'.format(WORKERS[1])
+WORKER_IP3 = 'http://{}:9000/process'.format(WORKERS[2])
 
 workers = [WORKER_IP1, WORKER_IP2, WORKER_IP3]
 
@@ -58,4 +59,4 @@ def upload_file():
     '''
 
 if __name__ == '__main__':
-    app.run(host=constants.HOST, port=8000)
+    app.run(host=HOST, port=8000)

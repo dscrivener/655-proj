@@ -22,13 +22,28 @@ The reproduction instructions below deploys the server and puts the model on 3 w
     ```bash 
     sudo apt-get install unzip
     ```
-    - Run the server shell script
+    - Go to the project folder
     ```bash 
     cd 655-proj-main/
+    ```
+
+    - **At the file flask_app.py, change the server and the workers IP. For the server, the GENI should show the public available IP. For the workers, you can find them using ifconfig at each worker**
+
+    - **At the file server.conf, change the directory entry (second line) to your current directory (655-proj-main directory). You can get your directory using the command pwd.**
+
+    - Run the server shell script
+    ```bash 
     sudo bash InstallScripts/ConfigureServer.sh
     ```
 
-- SSH into workers 2, 3 and 5. Run the commands below on each worker. 
+    - You can verify if the server is running using the following command:
+
+    ```bash
+    supervisorctl status
+    ```
+
+- SSH into workers 1, 2 and 3. Run the commands below on each worker.
+
 - Obtain the repository
     ```bash 
     wget https://github.com/dscrivener/655-proj/archive/refs/heads/main.zip
@@ -41,11 +56,26 @@ The reproduction instructions below deploys the server and puts the model on 3 w
     ```bash 
     sudo apt-get install unzip
     ```
-    - Run the worker shell script
+
+    - Go to the project folder
     ```bash 
-    sudo bash 655-proj-main/InstallScripts/ConfigureWorker.sh
+    cd 655-proj-main/
     ```
 
+    - **At the file worker_img.py, change the worker IP to the IP that your current worker IP. You can find this information using ifconfig.**
+
+    - **At the file worker.conf, change the directory entry (second line) to your current directory (655-proj-main directory). You can get your directory using the command pwd.**
+
+    - Run the server shell script
+    ```bash 
+    sudo bash InstallScripts/ConfigureWorker.sh
+    ```
+
+    - You can verify if the server is running using the following command:
+
+    ```bash
+    supervisorctl status
+    ```
 
 ## Team members
 - Abhinit Sati

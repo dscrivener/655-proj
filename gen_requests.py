@@ -1,12 +1,8 @@
 import os
 import sys
-import threading
-import _thread
-import time
 from joblib import Parallel, delayed
 import requests
 import numpy as np
-from timing import Logger
 random = np.random.RandomState(372189)
 
 #logger = Logger()

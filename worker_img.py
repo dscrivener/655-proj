@@ -1,10 +1,5 @@
-import sys
-import constants
 from flask import Flask, request
-import requests
-import socket
 from imgprocess import ImgModel
-from io import BytesIO
 app = Flask(__name__)
 model = ImgModel()
 
