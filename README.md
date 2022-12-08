@@ -24,7 +24,8 @@ The reproduction instructions below deploys the server and puts the model on 3 w
     ```
     - Run the server shell script
     ```bash 
-    sudo bash 655-proj-main/InstallScripts/ConfigureServer.sh
+    cd 655-proj-main/
+    sudo bash InstallScripts/ConfigureServer.sh
     ```
 
 - SSH into workers 2, 3 and 5. Run the commands below on each worker. 

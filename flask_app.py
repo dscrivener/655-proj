@@ -4,16 +4,15 @@ from flask import Flask, request
 from timing import Logger
 import socket
 import requests
+import constants
 
-WORKER_IP1 = 'http://172.17.2.14:9000/process'
-WORKER_IP2 = 'http://172.17.2.17:9000/process'
-WORKER_IP3 = 'http://172.17.2.23:9000/process'
+WORKER_IP1 = 'http://{}:9000/process'.format(constants.WORKERS[0])
+WORKER_IP2 = 'http://{}:9000/process'.format(constants.WORKERS[1])
+WORKER_IP3 = 'http://{}:9000/process'.format(constants.WORKERS[2])
 
 workers = [WORKER_IP1, WORKER_IP2, WORKER_IP3]
 
 current_worker = 0
-
-HOST = "204.102.244.60"
 
 app = Flask(__name__)
 timing = Logger()
@@ -59,4 +58,4 @@ def upload_file():
     '''
 
 if __name__ == '__main__':
-    app.run(host=HOST, port=8000, debug=True)
+    app.run(host=constants.HOST, port=8000)
