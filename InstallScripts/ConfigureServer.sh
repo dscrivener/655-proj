@@ -35,7 +35,6 @@ sudo pip3 install Pillow
 sudo pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cpu --no-cache-dir #install torch
 
 #download the project
-sudo wget --no-check-certificate --no-cache --no-cookies https://github.com/dscrivener/655-proj/archive/refs/heads/main.zip --post-data="action=purge"
 sudo unzip *.zip 
 
 
